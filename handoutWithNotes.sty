@@ -36,6 +36,11 @@
   }
 }
 
+\@ifundefined{pageheight}{%
+  \newlength{\pageheight}
+  \setlength{\pageheight}{\paperheight}
+}
+
 % 1 on 1 with notes landscape
 %  ----------------------------------------
 % | %%%%%%%%%%%%%%%%%%  __________________ | 
