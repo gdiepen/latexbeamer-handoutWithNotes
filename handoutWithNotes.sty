@@ -17,6 +17,10 @@
 
 \RequirePackage{pgfpages}
 
+\newcommand{\notesrules@hook}{}
+
+\newcommand{\BeforeNoteRules}[1]{\def\notesrules@hook{#1}}
+
 \newcommand{\declare@notesbox}{%
   \newbox\notesbox
   \setbox\notesbox=\vbox{
@@ -24,6 +28,7 @@
     \vskip -1in \hskip -1in \vbox{
       \vskip .05\pageheight
       Notes\vskip .1\pageheight
+      \notesrules@hook
       \hrule width\paperwidth \vskip .1\pageheight
       \hrule width\paperwidth \vskip .1\pageheight
       \hrule width\paperwidth \vskip .1\pageheight
