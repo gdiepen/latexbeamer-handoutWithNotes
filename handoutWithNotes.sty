@@ -7,6 +7,7 @@
 % 2. under the GNU Public License.
 % 
 % Changelog
+%       20200714 - Added translation support, provided by Ingmar Lippert
 %       20180920 - Refactored to work with different slide sizes
 %	20091202 - Added "1 on 1 with notes" layout, provided by Harald Welte
 %	20091108 - Added "2 on 1 with notes landscape" layout, provided by Edson Valle
@@ -16,6 +17,18 @@
 %   20090101 - Initial Version
 
 \RequirePackage{pgfpages}
+\RequirePackage{translations}
+
+
+% a command that's translated according to the provided translations:
+\newcommand*\NoteName{\GetTranslation{notes-word}}
+% the translations:
+% the fallback is used for languages where no specific translation is provided
+\DeclareTranslationFallback {notes-word}{Notes}
+\DeclareTranslation{English}{notes-word}{Notes}
+\DeclareTranslation{German} {notes-word}{Notizen}
+
+
 
 
 % 1 on 1 with notes landscape
@@ -69,7 +82,7 @@
    			\hsize=\paperwidth
    			\vskip-1in\hskip-1in\vbox{
 				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
+				\NoteName\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
@@ -188,7 +201,7 @@
 			\hsize=\paperwidth
 			\vskip-1in\hskip-1in\vbox{
 				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
+				\NoteName\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
@@ -279,7 +292,7 @@
 			\hsize=\paperwidth
 			\vskip-1in\hskip-1in\vbox{
 				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
+				\NoteName\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
@@ -385,7 +398,7 @@
 			\hsize=\paperwidth
 			\vskip-1in\hskip-1in\vbox{
 				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
+				\NoteName\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
@@ -472,7 +485,7 @@
 			\hsize=\paperwidth
 			\vskip-1in\hskip-1in\vbox{
 				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
+				\NoteName\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
@@ -544,7 +557,7 @@
 			\hsize=\paperwidth
 			\vskip-1in\hskip-1in\vbox{
 				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
+				\NoteName\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
 				\hrule width\paperwidth\vskip.1\pageheight
