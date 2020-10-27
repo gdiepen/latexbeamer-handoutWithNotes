@@ -47,6 +47,11 @@
 \ExplSyntaxOff
 
 \RequirePackage{pgfpages}
+\RequirePackage{translator}
+
+\providetranslation[to=English]{Notes}{Notes}
+\providetranslation[to=German]{Notes}{Notizen}
+\providetranslation[to=French]{Notes}{Notes}
 
 \expandafter\ifx\csname pageheight\endcsname\relax
 	\newcommand*{\handoutwithNotes@pageheight}{\pdfpageheight}
@@ -70,7 +75,8 @@
 		\hsize=\paperwidth
 		\vskip-1in\hskip-1in\vbox{
 			\vskip.05\handoutwithNotes@pageheight
-			Notes\vskip.1\handoutwithNotes@pageheight
+			\translatelet{\notesbox@tmp}{Notes}%
+      \ifx \notesbox@tmp\empty \else \notesbox@tmp \vskip .1\handoutwithNotes@pageheight\fi
 			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
 			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
 			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
