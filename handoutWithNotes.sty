@@ -16,6 +16,11 @@
 %   20090101 - Initial Version
 
 \RequirePackage{pgfpages}
+\RequirePackage{translator}
+
+\providetranslation[to=English]{Notes}{Notes}
+\providetranslation[to=German]{Notes}{Notizen}
+\providetranslation[to=French]{Notes}{Notes}
 
 \newcommand{\notesrules@hook}{}
 
@@ -27,7 +32,8 @@
     \hsize=\paperwidth
     \vskip -1in \hskip -1in \vbox{
       \vskip .05\pageheight
-      Notes\vskip .1\pageheight
+      \translatelet{\notesbox@tmp}{Notes}%
+      \ifx \notesbox@tmp\empty \else \notesbox@tmp \vskip .1\pageheight\fi
       \notesrules@hook
       \hrule width\paperwidth \vskip .1\pageheight
       \hrule width\paperwidth \vskip .1\pageheight
