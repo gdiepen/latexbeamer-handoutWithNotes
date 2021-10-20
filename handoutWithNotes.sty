@@ -15,6 +15,25 @@
 %	20091104 - Added "1 on 1 with notes landscape" layout, provided by Edson Valle
 %   20090101 - Initial Version
 
+\ProvidesPackage{handoutWithNotes}
+\RequirePackage{l3keys2e}
+\ExplSyntaxOn
+\keys_define:nn {handoutWithNotes} {
+	slide-frame .bool_gset:N =  \g__ptxcd_print_slide_frame_bool,
+	slide-frame .initial:n = false,
+	slide-frame .default:n = true,
+	note-frame .bool_gset:N =  \g__ptxcd_print_note_frame_bool,
+	note-frame .initial:n = false,
+	note-frame .default:n = true,
+}
+
+\ProcessKeysOptions{handoutWithNotes}
+
+\newcommand*{\handoutwithNotes@conditionalFrame}[1]{
+	\bool_if:cT {g__ptxcd_print_#1_frame_bool} {\pgfusepath{stroke}}
+}
+\ExplSyntaxOff
+
 \RequirePackage{pgfpages}
 
 \expandafter\ifx\csname pageheight\endcsname\relax
@@ -75,7 +94,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.5\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.5\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 
 	\pgfpageslogicalpageoptions{2}
@@ -84,7 +104,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.5\pgfphysicalheight},%
-		copy from=2
+		copy from=2,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%    
 
     \AtBeginDocument{
@@ -131,14 +152,16 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.875\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.875\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
     }%
     \pgfpageslogicalpageoptions{2}
     {%
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.625\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.625\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
     }%
 
     \pgfpageslogicalpageoptions{3}
@@ -146,7 +169,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.375\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.375\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
     }%
 
     \pgfpageslogicalpageoptions{4}
@@ -154,7 +178,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.125\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.125\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
     }%
 	
 	
@@ -164,7 +189,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.875\pgfphysicalheight},%
-		copy from=5
+		copy from=5,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
     }%
     \pgfpageslogicalpageoptions{6}
     {%
@@ -172,7 +198,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.625\pgfphysicalheight},%
-		copy from=6
+		copy from=6,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
     }%
     \pgfpageslogicalpageoptions{7}
     {%
@@ -180,7 +207,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.375\pgfphysicalheight},%
-		copy from=7
+		copy from=7,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
     }%
     \pgfpageslogicalpageoptions{8}
     {%
@@ -188,7 +216,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.25\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.125\pgfphysicalheight},%
-		copy from=8
+		copy from=8,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
     }%
     
 	\AtBeginDocument{
@@ -238,7 +267,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 	
 	\pgfpageslogicalpageoptions{2}
@@ -246,7 +276,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.25\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.25\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 	
 	\pgfpageslogicalpageoptions{3}
@@ -255,7 +286,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.75\pgfphysicalheight},%
-		copy from=3
+		copy from=3,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%
 	
 	\pgfpageslogicalpageoptions{4}
@@ -264,7 +296,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.25\pgfphysicalheight},%
-		copy from=4
+		copy from=4,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%
 	
 	\AtBeginDocument{
@@ -312,7 +345,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.33\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.83\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.83\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 	
 	\pgfpageslogicalpageoptions{2}
@@ -320,7 +354,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.33\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.50\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.50\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 	
 	\pgfpageslogicalpageoptions{3}
@@ -328,7 +363,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.33\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.17\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.17\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%	
 	
 	\pgfpageslogicalpageoptions{4}
@@ -337,7 +373,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.33\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.83\pgfphysicalheight},%
-		copy from=4
+		copy from=4,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%
 	
 	\pgfpageslogicalpageoptions{5}
@@ -346,7 +383,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.33\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.50\pgfphysicalheight},%
-		copy from=5
+		copy from=5,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%
 	
 	\pgfpageslogicalpageoptions{6}
@@ -355,7 +393,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.33\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.17\pgfphysicalheight},%
-		copy from=6
+		copy from=6,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%
 	
 	\AtBeginDocument{
@@ -401,7 +440,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 	
 	\pgfpageslogicalpageoptions{2}
@@ -409,7 +449,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
-		center=\pgfpoint{.25\pgfphysicalwidth}{.25\pgfphysicalheight}%
+		center=\pgfpoint{.25\pgfphysicalwidth}{.25\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 
 	\pgfpageslogicalpageoptions{3}
@@ -418,7 +459,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.25\pgfphysicalheight},%
-		copy from=3
+		copy from=3,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%   
    
 	\pgfpageslogicalpageoptions{4}
@@ -427,7 +469,8 @@
 		resized width=.5\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
 		center=\pgfpoint{.75\pgfphysicalwidth}{.75\pgfphysicalheight},%
-		copy from=4
+		copy from=4,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%
 
 	\AtBeginDocument{
@@ -475,7 +518,8 @@
 		border shrink=\pgfpageoptionborder,%
 		resized width=\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
-		center=\pgfpoint{.5\pgfphysicalwidth}{.75\pgfphysicalheight}%
+		center=\pgfpoint{.5\pgfphysicalwidth}{.75\pgfphysicalheight},%
+		border code=\handoutwithNotes@conditionalFrame{slide},%
 	}%
 	
 	\pgfpageslogicalpageoptions{2}
@@ -484,7 +528,8 @@
 		resized width=\pgfphysicalwidth,%
 		resized height=.5\pgfphysicalheight,%
 		center=\pgfpoint{.5\pgfphysicalwidth}{.25\pgfphysicalheight},%
-		copy from=2
+		copy from=2,%
+		border code=\handoutwithNotes@conditionalFrame{note},%
 	}%    
 	
 	\AtBeginDocument{
