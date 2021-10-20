@@ -17,6 +17,30 @@
 
 \RequirePackage{pgfpages}
 
+\expandafter\ifx\csname pageheight\endcsname\relax
+	\newcommand*{\handoutwithNotes@pageheight}{\pdfpageheight}
+\else
+	\newcommand*{\handoutwithNotes@pageheight}{\pageheight}
+\fi
+
+\newcommand{\handoutWithNotes@initNotesBox}{
+	\newbox\notesbox
+	\setbox\notesbox=\vbox{
+		\hsize=\paperwidth
+		\vskip-1in\hskip-1in\vbox{
+			\vskip.05\handoutwithNotes@pageheight
+			Notes\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
+			\hrule width\paperwidth
+		}
+	}
+}
 
 % 1 on 1 with notes landscape
 %  ----------------------------------------
@@ -64,24 +88,9 @@
 	}%    
 
     \AtBeginDocument{
-		\newbox\notesbox
-   		\setbox\notesbox=\vbox{
-   			\hsize=\paperwidth
-   			\vskip-1in\hskip-1in\vbox{
-				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth
-   			}
-   		}
-      	\pgfpagesshipoutlogicalpage{2}\copy\notesbox
-	}  	
+			\handoutWithNotes@initNotesBox
+      \pgfpagesshipoutlogicalpage{2}\copy\notesbox
+		}
 }
  
 
@@ -183,22 +192,7 @@
     }%
     
 	\AtBeginDocument{
-		\newbox\notesbox
-		\setbox\notesbox=\vbox{
-			\hsize=\paperwidth
-			\vskip-1in\hskip-1in\vbox{
-				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth
-			}
-		}
+		\handoutWithNotes@initNotesBox
 		\pgfpagesshipoutlogicalpage{5}\copy\notesbox
 		\pgfpagesshipoutlogicalpage{6}\copy\notesbox
 		\pgfpagesshipoutlogicalpage{7}\copy\notesbox
@@ -274,22 +268,7 @@
 	}%
 	
 	\AtBeginDocument{
-		\newbox\notesbox
-		\setbox\notesbox=\vbox{
-			\hsize=\paperwidth
-			\vskip-1in\hskip-1in\vbox{
-				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth
-			}
-		}
+		\handoutWithNotes@initNotesBox
 		\pgfpagesshipoutlogicalpage{3}\copy\notesbox
 		\pgfpagesshipoutlogicalpage{4}\copy\notesbox
 	}
@@ -380,22 +359,7 @@
 	}%
 	
 	\AtBeginDocument{
-		\newbox\notesbox
-		\setbox\notesbox=\vbox{
-			\hsize=\paperwidth
-			\vskip-1in\hskip-1in\vbox{
-				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth
-			}
-		}
+		\handoutWithNotes@initNotesBox
 		\pgfpagesshipoutlogicalpage{4}\copy\notesbox
 		\pgfpagesshipoutlogicalpage{5}\copy\notesbox
 		\pgfpagesshipoutlogicalpage{6}\copy\notesbox
@@ -467,22 +431,7 @@
 	}%
 
 	\AtBeginDocument{
-		\newbox\notesbox
-		\setbox\notesbox=\vbox{
-			\hsize=\paperwidth
-			\vskip-1in\hskip-1in\vbox{
-				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth
-			}
-		}
+		\handoutWithNotes@initNotesBox
 		\pgfpagesshipoutlogicalpage{3}\copy\notesbox
 		\pgfpagesshipoutlogicalpage{4}\copy\notesbox
 	}
@@ -539,22 +488,7 @@
 	}%    
 	
 	\AtBeginDocument{
-		\newbox\notesbox
-		\setbox\notesbox=\vbox{
-			\hsize=\paperwidth
-			\vskip-1in\hskip-1in\vbox{
-				\vskip.05\pageheight
-				Notes\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth\vskip.1\pageheight
-				\hrule width\paperwidth
-			}
-		}
+		\handoutWithNotes@initNotesBox
 		\pgfpagesshipoutlogicalpage{2}\copy\notesbox
 	}
 }
