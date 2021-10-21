@@ -42,8 +42,9 @@
 	\newcommand*{\handoutwithNotes@pageheight}{\pageheight}
 \fi
 
-\newcommand{\handoutWithNotes@initNotesBox}{
-	\newbox\notesbox
+\ExplSyntaxOn
+\newbox\notesbox
+\newcommand{\handoutWithNotes@initNotesBox}[1]{
 	\setbox\notesbox=\vbox{
 		\hsize=\paperwidth
 		\vskip-1in\hskip-1in\vbox{
@@ -59,7 +60,9 @@
 			\hrule width\paperwidth
 		}
 	}
+	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\copy\notesbox}
 }
+\ExplSyntaxOff
 
 % 1 on 1 with notes landscape
 %  ----------------------------------------
@@ -109,8 +112,7 @@
 	}%    
 
     \AtBeginDocument{
-			\handoutWithNotes@initNotesBox
-      \pgfpagesshipoutlogicalpage{2}\copy\notesbox
+			\handoutWithNotes@initNotesBox{1}
 		}
 }
  
@@ -221,11 +223,7 @@
     }%
     
 	\AtBeginDocument{
-		\handoutWithNotes@initNotesBox
-		\pgfpagesshipoutlogicalpage{5}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{6}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{7}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{8}\copy\notesbox
+		\handoutWithNotes@initNotesBox{4}
 	}
 }
 
@@ -301,9 +299,7 @@
 	}%
 	
 	\AtBeginDocument{
-		\handoutWithNotes@initNotesBox
-		\pgfpagesshipoutlogicalpage{3}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{4}\copy\notesbox
+		\handoutWithNotes@initNotesBox{2}
 	}
 }
 
@@ -398,10 +394,7 @@
 	}%
 	
 	\AtBeginDocument{
-		\handoutWithNotes@initNotesBox
-		\pgfpagesshipoutlogicalpage{4}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{5}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{6}\copy\notesbox
+		\handoutWithNotes@initNotesBox{3}
 	}
 }
 
@@ -474,9 +467,7 @@
 	}%
 
 	\AtBeginDocument{
-		\handoutWithNotes@initNotesBox
-		\pgfpagesshipoutlogicalpage{3}\copy\notesbox
-		\pgfpagesshipoutlogicalpage{4}\copy\notesbox
+		\handoutWithNotes@initNotesBox{2}
 	}
 }
 
@@ -533,8 +524,7 @@
 	}%    
 	
 	\AtBeginDocument{
-		\handoutWithNotes@initNotesBox
-		\pgfpagesshipoutlogicalpage{2}\copy\notesbox
+		\handoutWithNotes@initNotesBox{1}
 	}
 }
 
