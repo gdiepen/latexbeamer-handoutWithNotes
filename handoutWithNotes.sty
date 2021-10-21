@@ -1,21 +1,30 @@
-% Copyright 2009 by Guido Diepen <guido@guidodiepen.nl>
+% Copyright (C) 2009–2018 by Guido Diepen <guido@guidodiepen.nl>
 % 	Parts provided by Edson Valle
+% Copyright (C) 2021 Marei Peischl <marei@peitex.de>
 %
-% This file may be distributed and/or modified
-%
-% 1. under the LaTeX Project Public License and/or
-% 2. under the GNU Public License.
-% 
-% Changelog
-%       20180920 - Refactored to work with different slide sizes
-%	20091202 - Added "1 on 1 with notes" layout, provided by Harald Welte
-%	20091108 - Added "2 on 1 with notes landscape" layout, provided by Edson Valle
-%	20091104 - Added "3 on 1 with notes" layout
-%	20091104 - Added "2 on 1 with notes" layout
-%	20091104 - Added "1 on 1 with notes landscape" layout, provided by Edson Valle
-%   20090101 - Initial Version
+%% ============================================================================
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008/05/04 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainers of this work are
+%%   Marei Peischl <marei@peitex.de>
+%%   Guido Diepen <guido@guidodiepen.nl>
+%%
+%% The development respository can be found at
+%% https://github.com/gdiepen/latexbeamer-handoutWithNotes
+%% Please use the issue tracker for feedback!
+%%
+%% ============================================================================
+%%
 
-\ProvidesPackage{handoutWithNotes}
+\ProvidesPackage{handoutWithNotes}[2021/10/21 v1.0 pgfpages layouts tp print beamer slides with notes]
 \RequirePackage{l3keys2e}
 \ExplSyntaxOn
 \keys_define:nn {handoutWithNotes} {
