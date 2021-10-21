@@ -65,6 +65,10 @@
 }
 
 \box_new:N  \g__handoutWithNotes_notes_box
+\tl_new:N \l_handoutWithNotes_title_tl
+\hook_new:n {handoutWithNotes/notesbox}
+\hook_new:n {handoutWithNotes/notesbox/title}
+\hook_new:n {handoutWithNotes/notesbox/content}
 
 \newcommand{\handoutWithNotes@initNotesBox}[1]{
 	\bool_if:NTF  \g__handoutWithNotes_beamer_notes_bool {
@@ -83,7 +87,10 @@
 		\vbox_to_ht:nn {\handoutWithNotes_pageheight:} {
 			\skip_vertical:n {\topskip}
 			\translatelet{\l_handoutWithNotes_title_tl}{Notes}%
-			\tl_if_empty:NF \l_handoutWithNotes_title_tl {\l_handoutWithNotes_title_tl\skip_vertical:n {\fill}}
+			\hook_use:n {handoutWithNotes/notesbox}
+			\tl_if_empty:NF \l_handoutWithNotes_title_tl {\hook_use:n {handoutWithNotes/notesbox/title}\l_handoutWithNotes_title_tl}
+			\hook_use:n {handoutWithNotes/notesbox/content}
+			\skip_vertical:n {\fill}
       \int_step_inline:nn {\g_handoutWithNotes_lines_int} {\hrule width\paperwidth\skip_vertical:n {\fill}}
 		}
 	}
