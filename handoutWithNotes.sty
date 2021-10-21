@@ -19,18 +19,21 @@
 \RequirePackage{l3keys2e}
 \ExplSyntaxOn
 \keys_define:nn {handoutWithNotes} {
-	slide-frame .bool_gset:N =  \g__ptxcd_print_slide_frame_bool,
+	slide-frame .bool_gset:N =  \g__handoutWithNotes_print_slide_frame_bool,
 	slide-frame .initial:n = false,
 	slide-frame .default:n = true,
-	note-frame .bool_gset:N =  \g__ptxcd_print_note_frame_bool,
+	note-frame .bool_gset:N =  \g__handoutWithNotes_print_note_frame_bool,
 	note-frame .initial:n = false,
 	note-frame .default:n = true,
+	print-beamer-notes .bool_gset:N = \g__handoutWithNotes_beamer_notes_bool,
+	beamer-notes .initial:n = false,
+	beamer-notes .default:n = true,
 }
 
 \ProcessKeysOptions{handoutWithNotes}
 
 \newcommand*{\handoutwithNotes@conditionalFrame}[1]{
-	\bool_if:cT {g__ptxcd_print_#1_frame_bool} {\pgfusepath{stroke}}
+	\bool_if:cT {g__handoutWithNotes_print_#1_frame_bool} {\pgfusepath{stroke}}
 }
 \ExplSyntaxOff
 
@@ -45,6 +48,15 @@
 \ExplSyntaxOn
 \newbox\notesbox
 \newcommand{\handoutWithNotes@initNotesBox}[1]{
+	\bool_if:NTF  \g__handoutWithNotes_beamer_notes_bool {
+		\beamer@twoscreensnotestrue
+		\setbeameroption{show~notes}
+		\gdef\beamer@currentmode{handout}
+		\setbeamertemplate{note~page}[plain]
+		\let\beamer@outsideframenote\handoutWithNotes@beamer@outsideframenote
+		\msg_new:nnn {handoutWithNotes} {patch-beamer@outsideframenote} {I~am~patching~the~note~mechanism~to~be~able~to~place~multiple~note~pages~on~one~physical~page.}
+		\msg_info:nn {handoutWithNotes} {patch-beamer@outsideframenote}
+	}{
 	\setbox\notesbox=\vbox{
 		\hsize=\paperwidth
 		\vskip-1in\hskip-1in\vbox{
@@ -61,6 +73,7 @@
 		}
 	}
 	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\copy\notesbox}
+	}
 }
 \ExplSyntaxOff
 
@@ -530,3 +543,72 @@
 
 
 
+% if print-beamer-notes is enable the note frame has to be patched
+\ExplSyntaxOn
+\int_new:N \g__handoutWithNotes_last_shipout_int
+\int_new:N \g__handoutWithNotes_current_note_page_int
+
+%Modified variant of beamer@outsideframenote
+%the patch allows multi page layouts with pgfpages
+%based on the definition in beamerbasenotes.sty
+% Copyright 2003--2007 by Till Tantau
+% Copyright 2010 by Vedran Mileti\'c
+% Copyright 2012,2015 by Vedran Mileti\'c, Joseph Wright
+% Copyright 2017,2018 by Louis Stuart, Joseph Wright
+\newcommand\handoutWithNotes@beamer@outsideframenote[2][]{%
+	\beamer@savemode%
+	\ifbeamer@inlecture%
+	\def\beamer@noteenvstart{}%
+	\def\beamer@noteenvend{}%
+	\setkeys{beamernotes}{#1}%
+	\ifbeamer@notes
+	\begingroup
+	\setbeamertemplate{itemize~item}{\textbullet}
+	\setbeamertemplate{itemize~subitem}{--}
+	\setbeamertemplate{enumerate~item}{\insertenumlabel.}
+	\setbeamertemplate{enumerate~subitem}{\insertenumlabel.\insertsubenumlabel}
+	\def\@oddhead{}
+	\def\@oddfoot{}
+	\let\@evenhead\@oddhead
+	\let\@evenfoot\@oddfoot
+	\def\beamer@backgroundtemplate{}%
+	\setbeamercolor{item}{fg=black,bg=white}
+	\color{black}%
+	\nointerlineskip
+	\hbox{\hskip-\Gm@lmargin\hskip1cm\vbox to\textheight{%
+			%pretend to have ``standard'' margins
+			\edef\beamer@origlmargin{\Gm@lmargin}%
+			\edef\beamer@origrmargin{\Gm@rmargin}%
+			\def\Gm@lmargin{1cm}%
+			\def\Gm@rmargin{1cm}%
+			\textwidth=\dimexpr\paperwidth-\Gm@lmargin-\Gm@rmargin\relax%
+			\hsize=\textwidth%
+			\@arrayparboxrestore%
+			\vskip-\headheight%
+			\def\insertnote{\vbox{}%
+				\beamer@noteenvstart#2\beamer@noteenvend%
+			}%
+			\usebeamertemplate*{note~page}%
+			\vfil%
+			\vskip-4pt% foot separator
+			\vskip-\footheight}\hskip-\Gm@lmargin\hskip1cm}%
+	\ifbeamer@twoscreensnotes%
+		\int_compare:nF {\the\pgf@currentshipout = \g__handoutWithNotes_last_shipout_int}{
+			\int_gset:Nn \g__handoutWithNotes_last_shipout_int {\the\pgf@currentshipout}
+			\int_compare:nTF {\g__handoutWithNotes_current_note_page_int=\the\pgf@lastshipout} {
+				\int_gset:Nn \g__handoutWithNotes_current_note_page_int {1}
+			} {
+				\int_gincr:N \g__handoutWithNotes_current_note_page_int
+			}
+		}
+		\pgfpagescurrentpagewillbelogicalpage{\int_eval:n {\g__handoutWithNotes_current_note_page_int+\the\pgf@lastshipout}}
+		\advance\c@page by-1\relax%
+	\fi%
+	\clearpage
+	\endgroup
+	\fi%
+	\fi%
+	\beamer@resumemode}
+
+\ExplSyntaxOff
+\endinput
