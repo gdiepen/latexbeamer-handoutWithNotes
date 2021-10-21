@@ -37,6 +37,8 @@
 	beamer-notes .bool_gset:N = \g__handoutWithNotes_beamer_notes_bool,
 	beamer-notes .initial:n = false,
 	beamer-notes .default:n = true,
+	lines .int_gset:N = \g_handoutWithNotes_lines_int,
+	lines .initial:n = 8
 }
 
 \ProcessKeysOptions{handoutWithNotes}
@@ -53,14 +55,19 @@
 \providetranslation[to=German]{Notes}{Notizen}
 \providetranslation[to=French]{Notes}{Notes}
 
-\expandafter\ifx\csname pageheight\endcsname\relax
-	\newcommand*{\handoutwithNotes@pageheight}{\pdfpageheight}
-\else
-	\newcommand*{\handoutwithNotes@pageheight}{\pageheight}
-\fi
 
 \ExplSyntaxOn
+
+\cs_if_exist:NTF \pageheight {
+	\cs_set:Nn \handoutWithNotes_pageheight: {\pageheight}
+} {
+	\cs_set:Nn \handoutWithNotes_pageheight: {\pdfpageheight}
+}
+
+
 \newbox\notesbox
+\box_new:N  \g__handoutWithNotes_notes_box
+
 \newcommand{\handoutWithNotes@initNotesBox}[1]{
 	\bool_if:NTF  \g__handoutWithNotes_beamer_notes_bool {
 		\beamer@twoscreensnotestrue
@@ -71,23 +78,18 @@
 		\msg_new:nnn {handoutWithNotes} {patch-beamer@outsideframenote} {I~am~patching~the~note~mechanism~to~be~able~to~place~multiple~note~pages~on~one~physical~page.}
 		\msg_info:nn {handoutWithNotes} {patch-beamer@outsideframenote}
 	}{
-	\setbox\notesbox=\vbox{
+	\vbox_set:Nn \g__handoutWithNotes_notes_box {
 		\hsize=\paperwidth
-		\vskip-1in\hskip-1in\vbox{
-			\vskip.05\handoutwithNotes@pageheight
-			\translatelet{\notesbox@tmp}{Notes}%
-      \ifx \notesbox@tmp\empty \else \notesbox@tmp \vskip .1\handoutwithNotes@pageheight\fi
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth\vskip.1\handoutwithNotes@pageheight
-			\hrule width\paperwidth
+		\skip_vertical:n {-1in}
+		\skip_horizontal:n {-1in}
+		\vbox_to_ht:nn {\handoutWithNotes_pageheight:} {
+			\skip_vertical:n {\topskip}
+			\translatelet{\l_handoutWithNotes_title_tl}{Notes}%
+			\tl_if_empty:NF \l_handoutWithNotes_title_tl {\l_handoutWithNotes_title_tl\skip_vertical:n {\fill}}
+      \int_step_inline:nn {\g_handoutWithNotes_lines_int} {\hrule width\paperwidth\skip_vertical:n {\fill}}
 		}
 	}
-	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\copy\notesbox}
+	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\box_use:N \g__handoutWithNotes_notes_box}
 	}
 }
 \ExplSyntaxOff
