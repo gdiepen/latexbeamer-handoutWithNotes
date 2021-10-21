@@ -64,8 +64,6 @@
 	\cs_set:Nn \handoutWithNotes_pageheight: {\pdfpageheight}
 }
 
-
-\newbox\notesbox
 \box_new:N  \g__handoutWithNotes_notes_box
 
 \newcommand{\handoutWithNotes@initNotesBox}[1]{
@@ -92,6 +90,9 @@
 	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\box_use:N \g__handoutWithNotes_notes_box}
 	}
 }
+
+%backwards compatibility
+\let\notesbox\g__handoutWithNotes_notes_box
 \ExplSyntaxOff
 
 % 1 on 1 with notes landscape
