@@ -27,6 +27,10 @@
 \ProvidesPackage{handoutWithNotes}[2021/10/21 v1.0 pgfpages layouts to print beamer slides with notes]
 \RequirePackage{l3keys2e}
 \ExplSyntaxOn
+\dim_new:N \g__handoutWithNotes_gridsize_dim
+\dim_gset:Nn \g__handoutWithNotes_gridsize_dim {5mm}
+
+
 \keys_define:nn {handoutWithNotes} {
 	slide-frame .bool_gset:N =  \g__handoutWithNotes_print_slide_frame_bool,
 	slide-frame .initial:n = false,
@@ -39,6 +43,11 @@
 	beamer-notes .default:n = true,
 	lines .int_gset:N = \g__handoutWithNotes_lines_int,
 	lines .initial:n = 8,
+	rule .dim_set:N = \l__handoutWithNotes_rule_dim,
+	rule .initial:n = \fboxrule,
+	graph .bool_gset:N = \g__handoutWithNotes_graph_bool,
+	graph .initial:n = false,
+	graph / unknown .code:n = \bool_gset:N \g__handoutWithNotes_graph_bool \dim_gset:Nn \g__handoutWithNotes_gridsize_dim {#1},
 }
 
 \ProcessKeysOptions{handoutWithNotes}
@@ -70,6 +79,9 @@
 \hook_new:n {handoutWithNotes/notesbox/title}
 \hook_new:n {handoutWithNotes/notesbox/content}
 
+\dim_new:N \l__handoutWithNotes_notes_dim
+\dim_new:N \l__handoutWithNotes_scaled_gridsize_dim
+
 \newcommand{\handoutWithNotes@initNotesBox}[1]{
 	\bool_if:NTF  \g__handoutWithNotes_beamer_notes_bool {
 		\beamer@twoscreensnotestrue
@@ -80,18 +92,52 @@
 		\msg_new:nnn {handoutWithNotes} {patch-beamer@outsideframenote} {I~am~patching~the~note~mechanism~to~be~able~to~place~multiple~note~pages~on~one~physical~page.}
 		\msg_info:nn {handoutWithNotes} {patch-beamer@outsideframenote}
 	}{
+	\dim_set:Nn \l_tmpa_dim {\pgfpageoptionwidth}
+	\dim_set:Nn \l_tmpb_dim {\pgfpageoptionborder}
+	\dim_set:Nn \l__handoutWithNotes_scaled_gridsize_dim
+		{ \g__handoutWithNotes_gridsize_dim * \dim_ratio:nn {\paperwidth}{.5\l_tmpa_dim - 2\l_tmpb_dim}}
 	\vbox_set:Nn \g__handoutWithNotes_notes_box {
 		\hsize=\paperwidth
-		\skip_vertical:n {-1in}
-		\skip_horizontal:n {-1in}
+		\translatelet{\l_handoutWithNotes_title_tl}{Notes}%
+		\hook_use:n {handoutWithNotes/notesbox}
+		\tl_if_empty:NF \l_handoutWithNotes_title_tl {\hook_use:n {handoutWithNotes/notesbox/title}\l_handoutWithNotes_title_tl}
+		}
+		\dim_set:Nn \l__handoutWithNotes_notes_dim {
+			\handoutWithNotes_pageheight: - \box_ht:N \g__handoutWithNotes_notes_box  - \box_dp:N \g__handoutWithNotes_notes_box - \topskip -\medskipamount
+		}
+		\vbox_set:Nn \g__handoutWithNotes_notes_box {
 		\vbox_to_ht:nn {\handoutWithNotes_pageheight:} {
-			\skip_vertical:n {\topskip}
-			\translatelet{\l_handoutWithNotes_title_tl}{Notes}%
-			\hook_use:n {handoutWithNotes/notesbox}
-			\tl_if_empty:NF \l_handoutWithNotes_title_tl {\hook_use:n {handoutWithNotes/notesbox/title}\l_handoutWithNotes_title_tl}
-			\hook_use:n {handoutWithNotes/notesbox/content}
-			\skip_vertical:n {\fill}
-      \int_step_inline:nn {\g__handoutWithNotes_lines_int} {\hrule width\paperwidth\skip_vertical:n {\fill}}
+			\hsize=\paperwidth
+			\skip_vertical:n {-1in}
+			\skip_horizontal:n {-1in}
+			\vbox_to_ht:nn {\handoutWithNotes_pageheight:} {
+				\skip_vertical:n {\topskip}
+				\hook_use:n {handoutWithNotes/notesbox}
+				\vbox_unpack_drop:N \g__handoutWithNotes_notes_box
+				\skip_vertical:n {\fill}
+				\hook_use:n {handoutWithNotes/notesbox/content}
+				\skip_vertical:n {\fill}
+				\bool_if:NTF \g__handoutWithNotes_graph_bool {
+					\vbox_to_ht:nn {\l__handoutWithNotes_notes_dim} {
+						\smash{
+							\rule[-\l__handoutWithNotes_notes_dim]{\l__handoutWithNotes_rule_dim}{\l__handoutWithNotes_notes_dim}
+							\dim_step_inline:nnnn {\l__handoutWithNotes_scaled_gridsize_dim+\l__handoutWithNotes_rule_dim} {\l__handoutWithNotes_scaled_gridsize_dim+1sp} {\paperwidth} {
+								\skip_horizontal:n {\l__handoutWithNotes_scaled_gridsize_dim-\l__handoutWithNotes_rule_dim}
+								\rule[-\l__handoutWithNotes_notes_dim]{\l__handoutWithNotes_rule_dim}{\l__handoutWithNotes_notes_dim}
+							}
+						}\par\nointerlineskip
+						\rule{\paperwidth}{\l__handoutWithNotes_rule_dim}\par
+						\dim_step_inline:nnnn {\l__handoutWithNotes_rule_dim+\l__handoutWithNotes_scaled_gridsize_dim+1sp} {\l__handoutWithNotes_scaled_gridsize_dim+1sp} {\l__handoutWithNotes_notes_dim} {
+							\nointerlineskip
+							\skip_vertical:n {\l__handoutWithNotes_scaled_gridsize_dim-\l__handoutWithNotes_rule_dim}
+							\rule{\paperwidth}{\l__handoutWithNotes_rule_dim}\par\nointerlineskip
+						}
+						\skip_vertical:n {\fill}
+					}
+				}{
+					\int_step_inline:nn {\g__handoutWithNotes_lines_int} {\hrule width\paperwidth\skip_vertical:n {\fill}}
+				}
+			}
 		}
 	}
 	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\box_use:N \g__handoutWithNotes_notes_box}
