@@ -37,8 +37,8 @@
 	beamer-notes .bool_gset:N = \g__handoutWithNotes_beamer_notes_bool,
 	beamer-notes .initial:n = false,
 	beamer-notes .default:n = true,
-	lines .int_gset:N = \g_handoutWithNotes_lines_int,
-	lines .initial:n = 8
+	lines .int_gset:N = \g__handoutWithNotes_lines_int,
+	lines .initial:n = 8,
 }
 
 \ProcessKeysOptions{handoutWithNotes}
@@ -91,7 +91,7 @@
 			\tl_if_empty:NF \l_handoutWithNotes_title_tl {\hook_use:n {handoutWithNotes/notesbox/title}\l_handoutWithNotes_title_tl}
 			\hook_use:n {handoutWithNotes/notesbox/content}
 			\skip_vertical:n {\fill}
-      \int_step_inline:nn {\g_handoutWithNotes_lines_int} {\hrule width\paperwidth\skip_vertical:n {\fill}}
+      \int_step_inline:nn {\g__handoutWithNotes_lines_int} {\hrule width\paperwidth\skip_vertical:n {\fill}}
 		}
 	}
 	\int_step_inline:nnn {#1+1} {2*#1} {\pgfpagesshipoutlogicalpage{##1}\box_use:N \g__handoutWithNotes_notes_box}
