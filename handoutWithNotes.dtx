@@ -73,9 +73,47 @@
 % \date{\fileversion (\filedate)}
 %
 % \maketitle
+% \begin{documentation}
+% \begin{abstract}
+%	This package provides page layouts based on \pkg{pagepages} to allow users to create printable handouts with note pages for their \pkg{beamer} presentation.
 %
+% It allows to place ruled note pages for handwritten notes or include beamers note pages directly.
+% \end{abstract}
+% \section{Quickstart}
+%	\pkg{handoutWithNotes} only defines pgfpages layout. The users have to activate it afterwards.
+% A minimal example to use the package would like the following listing:
+% \begin{verbatim}
+% \documentclass{beamer}
+% \usepackage{handoutWithNotes}% load the package
+% \pgfpagesuselayout{3 on 1 with notes}% select the layout
+% \begin{document}
+% Place your beamer content in here
+% \end{document}
+% \end{verbatim}
+% Currently the following layouts are implemented by this package:
+% \begin{itemize}
+% \item 1 on 1 with notes landscape
+% \item 2 on 1 with notes landscape
+% \item 1 on 1 with notes
+% \item 2 on 1 with notes
+% \item 3 on 1 with notes
+% \item 4 on 1 with notes
+% \end{itemize}
+% Without additional options the paper size will stay the same in contrast to the document without using \pkg{handoutWithNotes}.
+% In most cases a printable layout might be more usefull and some margin might also be nice.
+% This can be achieved by using \pkg{pgfpages} options:
+% \begin{verbatim}
+% \pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=5mm]
+% \end{verbatim}
+% To see all available options have a look at the \pkg{pgfpages} part of the pgf manual \cite{pgfpages}.
+%
+% \begin{thebibliography}{1}
+% \bibitem{pgfpages} TikZ \& PGF, Manual for Version 3.1.9a. \url{http://mirrors.ctan.org/graphics/pgf/base/doc/pgfmanual.pdf}
+% \end{thebibliography}
+%
+% \end{documentation}
+% \begin{implementation}
 % \section{Implementation}
-%
 %    \begin{macrocode}
 %<*package>
 %    \end{macrocode}
@@ -802,5 +840,6 @@
 %</package>
 % \fi
 %
-% \Finale
-\endinput
+% \end{implementation}
+%
+% \PrintIndex

@@ -46,16 +46,13 @@ Additionally we support the following package options:
 - `beamer-notes=true/false` use beamer notepages instead of the area for handwritten notes
 - `lines=<Number>` modify the number of lines in the notesbox (default is 8)
 
-Additionally the pgfpages options can be used.
-
-
-## Documentation
-A detailed documentation will follow but until this is done most information can be found in the blog post: https://www.guidodiepen.nl/2009/07/creating-latex-beamer-handouts-with-notes/
+Additionally the pgfpages options can be used. for more detailed information use the pdf documentation.
 
 ## Version History
 * v1.01 (2021-11-xx)
 	- use l3build
 	- add support for graph ruled paper
+	- add pdf documentation
 * v1.00 (2021-10-21) First CTAN Version
 	- add options to draw frames around the slides/notes
 	- add possibility to use beamer's note pages instead of empty ones
