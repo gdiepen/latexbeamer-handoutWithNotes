@@ -53,6 +53,9 @@ Additionally the pgfpages options can be used.
 A detailed documentation will follow but until this is done most information can be found in the blog post: https://www.guidodiepen.nl/2009/07/creating-latex-beamer-handouts-with-notes/
 
 ## Version History
+* v1.01 (2021-11-xx)
+	- use l3build
+	- add support for graph ruled paper
 * v1.00 (2021-10-21) First CTAN Version
 	- add options to draw frames around the slides/notes
 	- add possibility to use beamer's note pages instead of empty ones
