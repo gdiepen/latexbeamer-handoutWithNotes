@@ -107,6 +107,32 @@
 % \end{verbatim}
 % To see all available options have a look at the \pkg{pgfpages} part of the pgf manual \cite{pgfpages}.
 %
+% \section{Package options}
+% \pkg{handoutWithNotes} support package options to modify the note boxes.
+%  There are some general options but also others which depend on the setting to use handwritten or beamer notes.
+%
+% \DescribeOption{slide-frame}
+% \DescribeOption{note-frame}
+% By default the scaled pages are not framed. Depending on the beamer layout it might be usefull to add a frame around the slides. This can be done by the two booleans options \opt{slide-frame} and \opt{note-frame}.
+%
+% \subsection{Handwritten notes}
+% By default the note box consists of 8 lines for handwritten notes.
+% Beamer notes are ignored.
+%
+% \DescribeOption{lines} The \opt{lines} option accepts an integer value. It can be zero. The space between the lines will be filled. The size of the box will not change.
+%
+% \DescribeOption{graph}  The \opt{graph} option allows to switch from the ruled boxes to a graph ruled box layout. Here the scaling is done differently, because it might be usefull to select the size of the resulting grid manually. In case a boolean value is used for this opton it will simply switch between ruled and graph ruled paper layouts. The default grid size is 5mm. To change this size \opt{graph} also can accept dimen values like \code{graph=1cm}. This size will be the resulting size. Conversion and scaling is done automatically.
+%
+% \DescribeOption{rule} The \opt{rule} option can be used to adjust the thickness of drawing for graph ruled paper. Please pay attention that this value depends on the scaling.
+%
+% \subsection{Beamer notes}
+% \DescribeOption{beamer-notes} The \opt{beamer-notes} option allows to use \pkg{beamer}s note pages directly.
+% It's a boolean option which uses “true” if no value is given.
+% Have a look at the \pkg{beamer} documentation for guidance on how to use it \cite{beameruserguide}.
+% The template for these slides will be set to plain automatically to leave as much as space as possible for the notes.
+% This option will also set beamers mode to handout to ensure the order of the note pages and the slides will match.
+% Scaling will be identical to the content slide.
+%
 % \begin{thebibliography}{1}
 % \bibitem{pgfpages} TikZ \& PGF, Manual for Version 3.1.9a. \url{http://mirrors.ctan.org/graphics/pgf/base/doc/pgfmanual.pdf}
 % \end{thebibliography}
