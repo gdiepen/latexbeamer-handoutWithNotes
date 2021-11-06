@@ -133,6 +133,31 @@
 % This option will also set beamers mode to handout to ensure the order of the note pages and the slides will match.
 % Scaling will be identical to the content slide.
 %
+% \section{Customization}
+% \subsection{Title}
+% The package useds the translator package \cite{translator} (as it's beamer's default) to translate the title of the notes box.
+% By default \pkg{handoutWithNotes} supports English, German and French.
+% Additional languages can be added by using a similar structure.
+% \begin{verbatim}
+% \providetranslation[to=English]{Notes}{Notes}
+% \providetranslation[to=German]{Notes}{Notizen}
+% \providetranslation[to=French]{Notes}{Notes}
+% \end{verbatim}
+%
+% \subsection{Hooks}
+% \pkg{handoutWithNotes} provides hooks to add \LaTeX-Code to be executed in specific positions while creating the notes box.
+% These hooks only are available with the ruled or graph ruled boxes. To modify the layout of the layout of the beamer note pages use beamer templates \cite{beameruserguide}.
+% The implementation is based on the kernels hook management for details have a look at the corresponding documentation \cite{lthooks-doc}.
+%
+% \begin{description}
+% \item[\hook{handoutWithNotes/notesbox}]
+%      This hook will be executed at the beginning of each notsbox. One can use it to change color or add font modifications.
+% \item[\hook{handoutWithNotes/notesbox/title}]
+% 		 This hook will be used right before the title of the notes box is typeset. It's inside a group including only the title. This will (except if global changes are enforced) not affect the box content.
+% \item[\hook{handoutWithNotes/notesbox/content}]
+%			 This hook is added after the Title. It can be used to add text or additional layout options. It's executed in inner vertical mode. For horizontal content there might be some adjustments necessary.
+% \end{description}
+%
 % \begin{thebibliography}{1}
 % \bibitem{pgfpages} TikZ \& PGF, Manual for Version 3.1.9a. \url{http://mirrors.ctan.org/graphics/pgf/base/doc/pgfmanual.pdf}
 % \end{thebibliography}
