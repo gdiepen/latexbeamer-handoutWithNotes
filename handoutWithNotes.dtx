@@ -67,6 +67,8 @@
 % \DoNotIndex{\newcommand,\newenvironment}
 %
 % \providecommand*{\url}{\texttt}
+% \providecommand*\hook[1]{\texttt{#1}}
+% \providecommand*\opt[1]{\texttt{#1}}
 % \GetFileInfo{handoutWithNotes.dtx}
 % \title{The \textsf{handoutWithNotes} package}
 % \author{Guido Diepen <guido@guidodiepen.nl> \and Marei Peischl <marei@peitex.de>}
@@ -121,7 +123,7 @@
 %
 % \DescribeOption{lines} The \opt{lines} option accepts an integer value. It can be zero. The space between the lines will be filled. The size of the box will not change.
 %
-% \DescribeOption{graph}  The \opt{graph} option allows to switch from the ruled boxes to a graph ruled box layout. Here the scaling is done differently, because it might be usefull to select the size of the resulting grid manually. In case a boolean value is used for this opton it will simply switch between ruled and graph ruled paper layouts. The default grid size is 5mm. To change this size \opt{graph} also can accept dimen values like \code{graph=1cm}. This size will be the resulting size. Conversion and scaling is done automatically.
+% \DescribeOption{graph}  The \opt{graph} option allows to switch from the ruled boxes to a graph ruled box layout. Here the scaling is done differently, because it might be usefull to select the size of the resulting grid manually. In case a boolean value is used for this opton it will simply switch between ruled and graph ruled paper layouts. The default grid size is 5mm. To change this size \opt{graph} also can accept dimen values like \opt{graph=1cm}. This size will be the resulting size. Conversion and scaling is done automatically.
 %
 % \DescribeOption{rule} The \opt{rule} option can be used to adjust the thickness of drawing for graph ruled paper. Please pay attention that this value depends on the scaling.
 %
