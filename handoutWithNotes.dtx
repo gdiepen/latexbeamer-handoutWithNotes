@@ -75,7 +75,8 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
-% \changes{1.1}{2021/11/05}{Converted to use l3build}
+% \changes{1.1}{2021/11/07}{Converted to use l3build}
+% \changes{1.1}{2021/11/07}{Add PDF documentation}
 %
 % \providecommand*{\url}{\texttt}
 % \providecommand*\hook[1]{\texttt{#1}}
@@ -125,6 +126,7 @@
 %
 % \DescribeOption{lines} The \cs{lines} option accepts an integer value. It can be zero. The space between the lines will be filled. The size of the box will not change.
 %
+% \changes{1.1}{2021/11/07}{Add support for graph ruled paper}
 % \DescribeOption{graph}  The \cs{graph} option allows to switch from the ruled boxes to a graph ruled box layout. Here the scaling is done differently, because it might be usefull to select the size of the resulting grid manually. In case a boolean value is used for this opton it will simply switch between ruled and graph ruled paper layouts. The default grid size is 5mm. To change this size \cs{graph} also can accept dimen values like \cs{graph=1cm}. This size will be the resulting size. Conversion and scaling is done automatically.
 %
 % \DescribeOption{rule} The \cs{rule} option can be used to adjust the thickness of drawing for graph ruled paper. Please pay attention that this value depends on the scaling.
@@ -264,7 +266,7 @@
 %<@@=handoutWithNotes>
 %    \end{macrocode}
 %    \begin{macrocode}
-\ProvidesPackage{handoutWithNotes}[2021/10/21 v1.0
+\ProvidesPackage{handoutWithNotes}[2021/11/07 v1.1
   pgfpages layouts to print beamer slides with notes]
 \RequirePackage{l3keys2e}
 \ExplSyntaxOn

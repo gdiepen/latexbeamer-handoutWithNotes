@@ -1,14 +1,14 @@
-# handoutWithNotes.sty 2021/10/21 v1.0
+# handoutWithNotes.sty 2021/10/21 v1.1
 
 Create Handouts with notes from your LaTeX beamer presentation.
-This package provides pgfpages layouts to place notes next to the scaled slides.
-By default the note area is empty providing rules for handwritten notes but with version 1.0 also beamer note pages can be used there.
 
 –––––––––––––––––––––––––––––––––––––––––––––
 
- Copyright (C) 2009–2018 by Guido Diepen <guido@guidodiepen.nl>
-     Parts provided by Edson Valle
- Copyright (C) 2021 Marei Peischl <marei@peitex.de>
+Copyright (C) 2009–2018 by Guido Diepen <guido@guidodiepen.nl>
+ 
+Parts provided by Edson Valle
+
+Copyright (C) 2021 Marei Peischl <marei@peitex.de>
 
 ***************************************************************************
 
@@ -49,11 +49,11 @@ Additionally we support the following package options:
 Additionally the pgfpages options can be used. for more detailed information use the pdf documentation.
 
 ## Version History
-* v1.01 (2021-11-xx)
-	- use l3build
+* v1.1 (2021-11-07)
+	- convert the sources for l3build including simple tests
 	- add support for graph ruled paper
 	- add pdf documentation
-* v1.00 (2021-10-21) First CTAN Version
+* v1.0 (2021-10-21) First CTAN Version
 	- add options to draw frames around the slides/notes
 	- add possibility to use beamer's note pages instead of empty ones
 * 20180920 - Refactored to work with different slide sizes
