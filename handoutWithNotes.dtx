@@ -196,6 +196,7 @@
   rule .dim_gset:N = \g_handoutWithNotes_rule_dim,
   rule .initial:n = \fboxrule,
   graph .bool_gset:N = \g_handoutWithNotes_graph_bool,
+  graph .default:n = true,
   graph .initial:n = false,
   graph / unknown .code:n = \bool_gset:N \g_handoutWithNotes_graph_bool
     \dim_gset:Nn \g_handoutWithNotes_gridsize_dim {#1},
@@ -781,7 +782,7 @@
           }
       }
     \pgfpagescurrentpagewillbelogicalpage
-      {\int_eval:n {\g__handoutWithNotes_current_note_page_int+\the\pgf@lastshipout}}
+      {\int_eval:n {\g_handoutWithNotes_current_note_page_int+\the\pgf@lastshipout}}
     \advance\c@page by-1\relax%
   \fi%
   \clearpage
