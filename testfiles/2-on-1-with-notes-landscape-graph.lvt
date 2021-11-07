@@ -1,0 +1,23 @@
+\input regression-test.tex
+\documentclass{beamer}
+
+\usepackage[graph=true]{handoutWithNotes}
+\pgfpagesuselayout{2 on 1 with notes landscape}[a4paper]
+
+\begin{document}
+\START
+\showoutput
+\begin{frame}
+Content1 \note{note1}
+\end{frame}
+\begin{frame}
+Content2 \note{note2}
+\end{frame}
+\clearpage
+\END
+\end{document}
+
+
+% Local Variables:
+% mode: latex
+% End:

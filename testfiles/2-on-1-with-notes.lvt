@@ -1,0 +1,21 @@
+\input regression-test.tex
+\documentclass{beamer}
+
+\usepackage[slide-frame,note-frame]{handoutWithNotes}
+\pgfpagesuselayout{2 on 1 with notes}[a4paper]
+
+\begin{document}
+\START
+\showoutput
+\begin{frame}
+Content1 \note{note1}
+\end{frame}
+\begin{frame}
+Content1 \note{note1}
+\end{frame}
+\END
+\end{document}
+
+% Local Variables:
+% mode: latex
+% End:
