@@ -313,10 +313,17 @@
 \providetranslation[to=German]{Notes}{Notizen}
 \providetranslation[to=French]{Notes}{Notes}
 \ExplSyntaxOn
-\cs_if_exist:NTF \pageheight {
-  \cs_set:Nn \@@_pageheight: {\pageheight}
-} {
-  \cs_set:Nn \@@_pageheight: {\pdfpageheight}
+%    \end{macrocode}
+% \changes{1.2}{2022/02/02}{Add support for dvipspdf workflows}
+%    \begin{macrocode}
+\sys_if_output_dvi:TF {
+  \cs_set:Nn \@@_pageheight: {\paperheight}
+}{
+  \cs_if_exist:NTF \pageheight {
+    \cs_set:Nn \@@_pageheight: {\pageheight}
+  } {
+    \cs_set:Nn \@@_pageheight: {\pdfpageheight}
+  }
 }
 \box_new:N  \g_handoutWithNotes_notes_box
 \tl_new:N \l_handoutWithNotes_title_tl
