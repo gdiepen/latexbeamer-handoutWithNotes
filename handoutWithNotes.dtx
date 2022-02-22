@@ -34,7 +34,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[2020/10/01]
 %<package>\ProvidesPackage{handoutWithNotes}
 %<*package>
-    [2022/02/02 v1.2 pgfpages layouts to print beamer slides with notes]
+    [2022/02/22 v1.3 pgfpages layouts to print beamer slides with notes]
 %</package>
 %
 %<*driver>
@@ -883,6 +883,12 @@
         \int_compare:nTF
           {\g_handoutWithNotes_current_note_page_int=\the\pgf@lastshipout}
           {
+%    \end{macrocode}
+% \changes{1.2}{2022/02/22}{Clear leftover beamer Notes when starting a new page}
+%    \begin{macrocode}
+            \int_step_variable:nNn {\pgf@lastshipout} \l_tmpa_int {
+              \box_gclear:c { pgfpages@box@ \int_eval:n {\l_tmpa_int + \the\pgf@lastshipout}}
+            }
             \int_gset:Nn \g_handoutWithNotes_current_note_page_int {1}
           } {
             \int_gincr:N \g_handoutWithNotes_current_note_page_int

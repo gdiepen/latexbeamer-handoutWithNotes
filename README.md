@@ -1,4 +1,4 @@
-# handoutWithNotes.sty 2022/02/02 v1.2
+# handoutWithNotes.sty 2022/02/22 v1.3
 
 Create Handouts with notes from your LaTeX beamer presentation.
 
@@ -49,6 +49,7 @@ Additionally we support the following package options:
 Additionally the pgfpages options can be used. for more detailed information use the pdf documentation.
 
 ## Version History
+* v1.3 (2022-02-22) Clear leftover boxes with notes
 * v1.2 (2022-02-02) Add support for DVI–PS–PDF workflows
 * v1.1 (2021-11-07)
 	- convert the sources for l3build including simple tests
