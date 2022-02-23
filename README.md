@@ -18,10 +18,12 @@ Copyright (C) 2021–2022 Marei Peischl <marei@peitex.de>
 *************************************************************************
 
 ## Quickstart
+
 To use this package load it in a document using beamer and select a layout:
 
 Minimal example:
-```
+
+```latex
 \documentclass{beamer}
 \usepackage{handoutWithNotes}
 \pgfpagesuselayout{3 on 1 with notes}
@@ -49,6 +51,7 @@ Additionally we support the following package options:
 Additionally the pgfpages options can be used. for more detailed information use the pdf documentation.
 
 ## Version History
+
 * v1.3 (2022-02-22) Clear leftover boxes with notes
 * v1.2 (2022-02-02) Add support for DVI–PS–PDF workflows
 * v1.1 (2021-11-07)
